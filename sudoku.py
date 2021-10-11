@@ -22,3 +22,5 @@ def print_grid():
         print("")
         if row == 2 or row == 5:
             print("------+-------+------")
+
+print_grid()
