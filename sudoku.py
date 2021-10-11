@@ -56,6 +56,12 @@ def set_numbers_in_table():
     sudoku_table[8][5] = 2
     sudoku_table[8][7] = 1
 
+def erase(row, column):
+    sudoku_table[row][column] = None
+
+def set(row, column, chosenNumber):
+    sudoku_table[row][column] = chosenNumber
+
 set_numbers_in_table()
 
 print_grid()
