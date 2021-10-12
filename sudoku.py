@@ -62,6 +62,43 @@ def erase(row, column):
 def set(row, column, chosenNumber):
     sudoku_table[row][column] = chosenNumber
 
+def choose_ee():
+    answer = ""
+    while not answer in ["enter", "erase"]:
+        answer = input("Would you enter or erase a number? ")
+    return answer
+
+def choose_rc():
+    row = 0
+    column = 0
+
+    while not (row >= 1 and row <= 9):
+        row = int(input("What row (1-9)? "))
+
+    while not (column >= 1 and column <= 9):
+        column = int(input("What column (1-9)? "))
+    return row, column
+    
+    
+
+def choose_number():
+    chooseNumber = 0
+    while not (chooseNumber >= 1 and chooseNumber <= 9):
+        chooseNumber = int(input("Please enter a number: "))
+    return chooseNumber
+
 set_numbers_in_table()
 
 print_grid()
+
+while True:
+    answer = choose_ee()
+    row, column = choose_rc()
+    if answer == "erase":
+        erase(row, column)
+    elif answer == "enter":
+        chooseNumber = choose_number()
+        set(row, column, chooseNumber)
+
+    print_grid()
+    
