@@ -77,9 +77,7 @@ def choose_rc():
 
     while not (column >= 1 and column <= 9):
         column = int(input("What column (1-9)? "))
-    return row, column
-    
-    
+    return row - 1, column - 1
 
 def choose_number():
     chooseNumber = 0
