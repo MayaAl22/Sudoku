@@ -60,7 +60,16 @@ def erase(row, column):
     sudoku_table[row][column] = None
 
 def set(row, column, chosenNumber):
-    sudoku_table[row][column] = chosenNumber
+    sudoku_table_column = []
+    for loop_row in sudoku_table:
+        sudoku_table_column.append(loop_row[column])
+
+    if chosenNumber in sudoku_table[row]:
+        print("Number already exists in row")
+    elif chosenNumber in sudoku_table_column:
+        print("Number already exists in column")
+    else:
+        sudoku_table[row][column] = chosenNumber  
 
 def choose_ee():
     answer = ""
