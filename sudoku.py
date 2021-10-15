@@ -94,6 +94,13 @@ def choose_number():
         chooseNumber = int(input("Please enter a number: "))
     return chooseNumber
 
+def game_won():
+    for row in sudoku_table:
+        for column in row:
+            if column == None:
+                return False
+    return True
+
 set_numbers_in_table()
 
 print_grid()
@@ -107,5 +114,8 @@ while True:
         chooseNumber = choose_number()
         set(row, column, chooseNumber)
 
+    if game_won():
+        print("Game won!")
+        break
     print_grid()
     
