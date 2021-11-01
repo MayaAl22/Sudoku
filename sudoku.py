@@ -73,6 +73,12 @@ class grid:
                     return False
         return True
 
+def choose_grid_size():
+    size = 0
+    while not (size == 6 or size == 9 or size == 16):
+        size = int(input("Choose Sudoku size (6 / 9 / 16): "))
+    return size
+
 def choose_ee():
     answer = ""
     while not answer in ["enter", "erase"]:
@@ -96,7 +102,8 @@ def choose_number():
         chooseNumber = int(input("Please enter a number: "))
     return chooseNumber
 
-my_grid = grid(9)
+size = choose_grid_size()
+my_grid = grid(size)
 my_grid.print()
 
 while True:
