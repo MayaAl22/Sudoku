@@ -1,7 +1,17 @@
 class grid:
+    _region_size = 0
     _grid = []
     
     def __init__(self, size):
+        # determine region size and save in attribute
+        if size == 6:
+            self._region_size = 3
+        elif size == 9:
+            self._region_size = 3
+        elif size == 16:
+            self._region_size = 4
+
+        # create grid
         for row in range(size):
             self._grid.append([])
             for _ in range(size):
@@ -45,11 +55,18 @@ class grid:
     def print(self):
         for row in range(len(self._grid)):
             for column in range(len(self._grid[row])):
+                # print value
                 if self._grid[row][column] == None:
                     print(".", end=" ")
                 else:
                     print(self._grid[row][column], end=" ")
-            print("")
+                # print vertical line
+                if column > 0 and column < len(self._grid[row])-1 and (column+1) % self._region_size == 0:
+                    print("|", end=" ")
+            print()
+            # print horizontal line
+            if row > 0 and row < len(self._grid)-1 and (row+1) % self._region_size == 0:
+                print("--" * (len(self._grid) + int(len(self._grid) / self._region_size) - 1))
 
     def erase(self, row, column):
         self._grid[row][column] = None
