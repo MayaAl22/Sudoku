@@ -1,15 +1,19 @@
 class grid:
-    _region_size = 0
+    _region_size_width = 0
+    _region_size_height = 0
     _grid = []
     
     def __init__(self, size):
         # determine region size and save in attribute
-        if size == 6:
-            self._region_size = 3
+        if size == 4:
+            self._region_size_width = 2
+            self._region_size_height = 2
+        elif size == 6:
+            self._region_size_width = 3
+            self._region_size_height = 2
         elif size == 9:
-            self._region_size = 3
-        elif size == 16:
-            self._region_size = 4
+            self._region_size_width = 3
+            self._region_size_height = 3
 
         # create grid
         for row in range(size):
@@ -92,8 +96,8 @@ class grid:
 
 def choose_grid_size():
     size = 0
-    while not (size == 6 or size == 9 or size == 16):
-        size = int(input("Choose Sudoku size (6 / 9 / 16): "))
+    while not (size == 4 or size == 6 or size == 9):
+        size = int(input("Choose Sudoku size (4 / 6 / 9): "))
     return size
 
 def choose_ee():
