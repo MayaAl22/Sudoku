@@ -23,7 +23,37 @@ class grid:
         self._set_values()
     
     def _set_values(self):
-        if len(self._grid) == 9:
+        if len(self._grid) == 4:
+            self._grid[0][0] = 3
+            self._grid[0][1] = 4
+            self._grid[0][2] = 1
+            self._grid[1][1] = 2
+            self._grid[2][2] = 2
+            self._grid[3][1] = 1
+            self._grid[3][2] = 4
+            self._grid[3][3] = 3
+        elif len(self._grid) == 6:
+            self._grid[0][2] = 6
+            self._grid[0][4] = 3
+            self._grid[1][0] = 3
+            self._grid[1][1] = 1
+            self._grid[1][2] = 4
+            self._grid[1][4] = 2
+            self._grid[2][2] = 5
+            self._grid[2][3] = 1
+            self._grid[2][4] = 4
+            self._grid[2][5] = 3
+            self._grid[3][0] = 1
+            self._grid[3][1] = 4
+            self._grid[3][2] = 3
+            self._grid[3][3] = 2
+            self._grid[4][1] = 3
+            self._grid[4][3] = 5
+            self._grid[4][4] = 6
+            self._grid[4][5] = 2
+            self._grid[5][1] = 6
+            self._grid[5][3] = 3
+        elif len(self._grid) == 9:
             self._grid[0][3] = 8
             self._grid[0][5] = 7
             self._grid[1][1] = 1
