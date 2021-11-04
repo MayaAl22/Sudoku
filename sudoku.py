@@ -65,12 +65,12 @@ class grid:
                 else:
                     print(self._grid[row][column], end=" ")
                 # print vertical line
-                if column > 0 and column < len(self._grid[row])-1 and (column+1) % self._region_size == 0:
+                if column > 0 and column < len(self._grid[row])-1 and (column+1) % self._region_size_width == 0:
                     print("|", end=" ")
             print()
             # print horizontal line
-            if row > 0 and row < len(self._grid)-1 and (row+1) % self._region_size == 0:
-                print("--" * (len(self._grid) + int(len(self._grid) / self._region_size) - 1))
+            if row > 0 and row < len(self._grid)-1 and (row+1) % self._region_size_height == 0:
+                print("--" * (len(self._grid) + int(len(self._grid) / self._region_size_width) - 1))
 
     def erase(self, row, column):
         self._grid[row][column] = None
