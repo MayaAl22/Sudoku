@@ -1,4 +1,4 @@
-class grid:
+class Grid:
     _region_size_width = 0
     _region_size_height = 0
     _grid = []
@@ -102,20 +102,20 @@ class grid:
             if row > 0 and row < len(self._grid)-1 and (row+1) % self._region_size_height == 0:
                 print("--" * (len(self._grid) + int(len(self._grid) / self._region_size_width) - 1))
 
-    def erase(self, row, column):
+    def erase_field(self, row, column):
         self._grid[row][column] = None
 
-    def set(self, row, column, chosenNumber):
+    def set_field(self, row, column, number):
         sudoku_table_column = []
         for loop_row in self._grid:
             sudoku_table_column.append(loop_row[column])
 
-        if chosenNumber in self._grid[row]:
+        if number in self._grid[row]:
             print("Number already exists in row")
-        elif chosenNumber in sudoku_table_column:
+        elif number in sudoku_table_column:
             print("Number already exists in column")
         else:
-            self._grid[row][column] = chosenNumber
+            self._grid[row][column] = number
         
     def is_won(self):
         for row in self._grid:
@@ -154,17 +154,17 @@ def choose_number():
     return chooseNumber
 
 size = choose_grid_size()
-my_grid = grid(size)
+my_grid = Grid(size)
 my_grid.print()
 
 while True:
     answer = choose_ee()
     row, column = choose_rc()
     if answer == "erase":
-        my_grid.erase(row, column)
+        my_grid.erase_field(row, column)
     elif answer == "enter":
         chooseNumber = choose_number()
-        my_grid.set(row, column, chooseNumber)
+        my_grid.set_field(row, column, chooseNumber)
 
     if my_grid.is_won():
         print("Game won!")
