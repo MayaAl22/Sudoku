@@ -20,10 +20,6 @@ class Empty:
         return self._value
 
 class Grid:
-    _region_size_width = 0
-    _region_size_height = 0
-    _grid = []
-    
     def __init__(self, size):
         # determine region size and save in attribute
         if size == 4:
@@ -37,6 +33,7 @@ class Grid:
             self._region_size_height = 3
 
         # create grid
+        self._grid = []
         for row in range(size):
             self._grid.append([])
             for _ in range(size):
