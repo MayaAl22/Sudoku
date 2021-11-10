@@ -185,20 +185,24 @@ def choose_number():
         chooseNumber = int(input("Please enter a number: "))
     return chooseNumber
 
-(region_height, region_width) = choose_grid_size()
-my_grid = Grid(region_height, region_width)
-my_grid.print()
+def main():
+    (region_height, region_width) = choose_grid_size()
+    grid = Grid(region_height, region_width)
+    grid.print()
 
-while True:
-    answer = choose_ee()
-    row, column = choose_rc()
-    if answer == "erase":
-        my_grid.erase_field(row, column)
-    elif answer == "enter":
-        chooseNumber = choose_number()
-        my_grid.set_field(row, column, chooseNumber)
+    while True:
+        answer = choose_ee()
+        row, column = choose_rc()
+        if answer == "erase":
+            grid.erase_field(row, column)
+        elif answer == "enter":
+            chooseNumber = choose_number()
+            grid.set_field(row, column, chooseNumber)
 
-    if my_grid.is_won():
-        print("Game won!")
-        break
-    my_grid.print()
+        if grid.is_won():
+            print("Game won!")
+            break
+        grid.print()
+
+if __name__ == "__main__":
+    main()
