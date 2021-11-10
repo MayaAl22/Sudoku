@@ -20,23 +20,15 @@ class Empty:
         return self._value
 
 class Grid:
-    def __init__(self, size):
-        # determine region size and save in attribute
-        if size == 4:
-            self._region_size_width = 2
-            self._region_size_height = 2
-        elif size == 6:
-            self._region_size_width = 3
-            self._region_size_height = 2
-        elif size == 9:
-            self._region_size_width = 3
-            self._region_size_height = 3
+    def __init__(self, region_height, region_width):
+        self._region_height = region_height
+        self._region_width = region_width
 
         # create grid
         self._grid = []
-        for row in range(size):
+        for row in range(self._region_height * self._region_width):
             self._grid.append([])
-            for _ in range(size):
+            for _ in range(self._region_height * self._region_width):
                 self._grid[row].append(Empty())
         self._set_values()
     
@@ -123,12 +115,12 @@ class Grid:
                 else:
                     print(self._grid[row][column].get_value(), end=" ")
                 # print vertical line
-                if column > 0 and column < len(self._grid[row])-1 and (column+1) % self._region_size_width == 0:
+                if column > 0 and column < len(self._grid[row])-1 and (column+1) % self._region_width == 0:
                     print("|", end=" ")
             print()
             # print horizontal line
-            if row > 0 and row < len(self._grid)-1 and (row+1) % self._region_size_height == 0:
-                print("--" * (len(self._grid) + int(len(self._grid) / self._region_size_width) - 1))
+            if row > 0 and row < len(self._grid)-1 and (row+1) % self._region_height == 0:
+                print("--" * (len(self._grid) + int(len(self._grid) / self._region_width) - 1))
 
     def erase_field(self, row, column):
         if isinstance(self._grid[row][column], Preset):
@@ -153,9 +145,22 @@ class Grid:
 
 def choose_grid_size():
     size = 0
-    while not (size == 4 or size == 6 or size == 9):
+    while not size in [4, 6, 9]:
         size = int(input("Choose Sudoku size (4 / 6 / 9): "))
-    return size
+    
+    region_height = 0
+    region_width = 0
+    if size == 4:
+        region_height = 2
+        region_width = 2
+    elif size == 6:
+        region_height = 2
+        region_width = 3
+    elif size == 9:
+        region_height = 3
+        region_width = 3
+
+    return (region_height, region_width)
 
 def choose_ee():
     answer = ""
@@ -180,8 +185,8 @@ def choose_number():
         chooseNumber = int(input("Please enter a number: "))
     return chooseNumber
 
-size = choose_grid_size()
-my_grid = Grid(size)
+(region_height, region_width) = choose_grid_size()
+my_grid = Grid(region_height, region_width)
 my_grid.print()
 
 while True:
