@@ -1,4 +1,6 @@
 class Preset:
+    """A class to represent a preset number field in a region object"""
+
     def __init__(self, number):
         self._value = number
     
@@ -6,6 +8,8 @@ class Preset:
         return self._value
 
 class Inserted:
+    """A class to represent an inserted number field in a region object"""
+
     def __init__(self, number):
         self._value = number
     
@@ -13,6 +17,8 @@ class Inserted:
         return self._value
 
 class Empty:
+    """A class to represent an empty field in a region object"""
+
     def __init__(self):
         self._value = None
     
