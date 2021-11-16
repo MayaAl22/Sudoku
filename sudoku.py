@@ -25,6 +25,12 @@ class Empty:
     def get_value(self):
         return self._value
 
+class Region:
+    """A class to represent a region in a Sudoku grid"""
+
+    def __init__(self, height, width):
+        pass
+
 class Grid:
     def __init__(self, region_height, region_width):
         self._region_height = region_height
