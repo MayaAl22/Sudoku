@@ -1,8 +1,8 @@
 class Preset:
     """A class to represent a preset number field in a region object"""
 
-    def __init__(self, number):
-        self._value = number
+    def __init__(self, value):
+        self._value = value
     
     def get_value(self):
         return self._value
@@ -10,8 +10,8 @@ class Preset:
 class Inserted:
     """A class to represent an inserted number field in a region object"""
 
-    def __init__(self, number):
-        self._value = number
+    def __init__(self, value):
+        self._value = value
     
     def get_value(self):
         return self._value
