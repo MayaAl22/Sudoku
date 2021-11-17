@@ -29,7 +29,35 @@ class Region:
     """A class to represent a region in a Sudoku grid"""
 
     def __init__(self, height, width):
-        pass
+        """Constructs a region with given height and width"""
+
+        self._region = [ [ Empty() for _ in range(width) ] for _ in range(height) ]
+    
+    def get_column(self, index):
+        """Returns the values of a column"""
+
+        column = []
+
+        for row in self._region:
+            column.append(row[index])
+
+        return column
+    
+    def get_region(self):
+        """Returns the values of a region"""
+
+        region = []
+
+        for row in self._region:
+            for element in row:
+                region.append(element)
+
+        return region
+    
+    def get_row(self, index):
+        """Returns the values of a row"""
+
+        return self._region[index]
 
 class Grid:
     def __init__(self, region_height, region_width):
