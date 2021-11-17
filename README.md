@@ -19,3 +19,10 @@
 ### Technical
 
 - The game is terminal-based and has no graphical UI components.
+
+## Run the game
+
+Please clone this repository and make sure you have a working installation of the Python interpreter, minimum version is 3.10. Please refer to the Python [website](https://www.python.org/downloads/), to learn more about how to download and install Python.
+
+The game can be executed on the terminal with the command `python sudoku.py`.
+If the current working directory is not the one of the closed repository a path to the `sudoku.py` file must be added.
