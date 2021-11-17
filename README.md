@@ -2,19 +2,20 @@
 
 "Sudoku is a logic-based, combinatorial number-placement puzzle." - Wikipedia
 
-## Grid
+## Features
 
-- The grid has a square shape and is divided into 64 (9x9) boxes.
-- The columns and rows of the grid are enumerated with letters on the top and numbers on the left side.
+### Grid
 
-## Gameflow
+- The grid has a square shape and is defined by the region size (height of region * width of region).
 
-- The game starts with preset numbers in the grid. Randomization of the numbers at each start of the game is an optional feature and may not be implemented.
-- The game provides an input to the user to erase, or place a number in the grid.
-- The input of a number must be checked if it is valid, for column and row, before saving it in the grid.
-- The game must check after each valid input if the game is won.
-- Numbers which are present in the grid, at the start of the game, are not erasable.
+### Gameflow
 
-## Technical
+- The game starts with preset numbers in the grid.
+- The game provides an input to the user to enter, or erase a number in the grid.
+- An entered number is checked if it is valid, for the selected row, column, and region.
+- Preset numbers are not erasable.
+- The game checks after each valid input if the game is won.
+
+### Technical
 
 - The game is terminal-based and has no graphical UI components.
