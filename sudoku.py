@@ -58,7 +58,7 @@ class Region:
         """Returns the values of a row"""
 
         return self._region[index]
-
+    
 class Grid:
     def __init__(self, region_height, region_width):
         self._region_height = region_height
