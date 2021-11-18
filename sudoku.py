@@ -60,128 +60,78 @@ class Region:
         return self._region[index]
     
 class Grid:
-    def __init__(self, region_height, region_width):
-        self._region_height = region_height
-        self._region_width = region_width
+    """A class to represent a the Sudoku grid"""
 
-        # create grid
-        self._grid = []
-        for row in range(self._region_height * self._region_width):
-            self._grid.append([])
-            for _ in range(self._region_height * self._region_width):
-                self._grid[row].append(Empty())
+    def __init__(self, height, width):
+        """Constructs a region with given height and width"""
+
+        self._height = height
+        self._width = width
+
+        self._grid = [ [ Region(self._height, self._width) for _ in range(self._height) ] for _ in range(self._width) ]
         self._set_values()
     
     def _set_values(self):
-        if len(self._grid) == 4:
-            self._grid[0][0] = Preset(3)
-            self._grid[0][1] = Preset(4)
-            self._grid[0][2] = Preset(1)
-            self._grid[1][1] = Preset(2)
-            self._grid[2][2] = Preset(2)
-            self._grid[3][1] = Preset(1)
-            self._grid[3][2] = Preset(4)
-            self._grid[3][3] = Preset(3)
-        elif len(self._grid) == 6:
-            self._grid[0][2] = Preset(6)
-            self._grid[0][4] = Preset(3)
-            self._grid[1][0] = Preset(3)
-            self._grid[1][1] = Preset(1)
-            self._grid[1][2] = Preset(4)
-            self._grid[1][4] = Preset(2)
-            self._grid[2][2] = Preset(5)
-            self._grid[2][3] = Preset(1)
-            self._grid[2][4] = Preset(4)
-            self._grid[2][5] = Preset(3)
-            self._grid[3][0] = Preset(1)
-            self._grid[3][1] = Preset(4)
-            self._grid[3][2] = Preset(3)
-            self._grid[3][3] = Preset(2)
-            self._grid[4][1] = Preset(3)
-            self._grid[4][3] = Preset(5)
-            self._grid[4][4] = Preset(6)
-            self._grid[4][5] = Preset(2)
-            self._grid[5][1] = Preset(6)
-            self._grid[5][3] = Preset(3)
-        elif len(self._grid) == 9:
-            self._grid[0][3] = Preset(8)
-            self._grid[0][5] = Preset(7)
-            self._grid[1][1] = Preset(1)
-            self._grid[1][4] = Preset(9)
-            self._grid[1][7] = Preset(8)
-            self._grid[2][3] = Preset(3)
-            self._grid[2][4] = Preset(4)
-            self._grid[2][5] = Preset(1)
-            self._grid[3][1] = Preset(3)
-            self._grid[3][2] = Preset(8)
-            self._grid[3][6] = Preset(7)
-            self._grid[3][7] = Preset(9)
-            self._grid[4][0] = Preset(9)
-            self._grid[4][8] = Preset(1)
-            self._grid[5][1] = Preset(6)
-            self._grid[5][2] = Preset(1)
-            self._grid[5][6] = Preset(8)
-            self._grid[5][7] = Preset(4)
-            self._grid[6][3] = Preset(4)
-            self._grid[6][4] = Preset(5)
-            self._grid[6][5] = Preset(9)
-            self._grid[7][0] = Preset(7)
-            self._grid[7][2] = Preset(4)
-            self._grid[7][3] = Preset(1)
-            self._grid[7][5] = Preset(3)
-            self._grid[7][6] = Preset(6)
-            self._grid[7][8] = Preset(5)
-            self._grid[8][1] = Preset(8)
-            self._grid[8][3] = Preset(7)
-            self._grid[8][5] = Preset(2)
-            self._grid[8][7] = Preset(1)
+        pass
     
-    def _number_in_row_column(self, row, column, number):
-        # check row
-        if number in [ field.get_value() for field in self._grid[row] ]:
-            return True
-        # check column
-        elif number in [ row[column].get_value() for row in self._grid ]:
-            return True
-        else:
-            return False
+    def _get_column(self, index):
+        """Returns the values of a column"""
+
+        values = []
+        grid_column = int(index / self._width)
+        region_column = index % self._width
+
+        for row in self._grid:
+            column = row[grid_column].get_column(region_column)
+            for element in column:
+                values.append(element)
+
+        return values
+
+    def _get_region(self, row_index, column_index):
+        """Returns the values of a region"""
+
+        return self._grid[row_index][column_index].get_region()
+
+    def _get_row(self, index):
+        """Returns the values of a row"""
+
+        values = []
+        grid_row = int(index / self._height)
+        region_row = index % self._height
+
+        for region in self._grid[grid_row]:
+            values.extend(region.get_row(region_row))
+        return values
     
     def print(self):
-        for row in range(len(self._grid)):
-            for column in range(len(self._grid[row])):
+        """Prints the values of the grid"""
+
+        for row in range(self._height * self._width):
+            for column in range(self._height * self._width):
                 # print value
-                if isinstance(self._grid[row][column], Empty):
+                if isinstance(self._get_row(row)[column], Empty):
                     print(".", end=" ")
                 else:
-                    print(self._grid[row][column].get_value(), end=" ")
+                    print(self._get_row(row)[column].get_value(), end=" ")
+
                 # print vertical line
-                if column > 0 and column < len(self._grid[row])-1 and (column+1) % self._region_width == 0:
+                if column > 0 and column < (self._height * self._width - 1) and (column + 1) % self._width == 0:
                     print("|", end=" ")
             print()
+
             # print horizontal line
-            if row > 0 and row < len(self._grid)-1 and (row+1) % self._region_height == 0:
-                print("--" * (len(self._grid) + int(len(self._grid) / self._region_width) - 1))
+            if row > 0 and row < (self._height * self._width - 1) and (row + 1) % self._height == 0:
+                print("--" * (self._height * self._width + int(self._height * self._width / self._width) - 1))
 
     def erase_field(self, row, column):
-        if isinstance(self._grid[row][column], Preset):
-            print("Field has preset number")
-        elif isinstance(self._grid[row][column], Empty):
-            print("Field is empty")
-        else:
-            self._grid[row][column] = Empty()
+        pass
 
     def set_field(self, row, column, number):
-        if self._number_in_row_column(row, column, number):
-            print("Number already exists in row or column")
-        else:
-            self._grid[row][column] = Inserted(number)
+        pass
         
     def is_won(self):
-        for row in self._grid:
-            for field in row:
-                if isinstance(field, Empty):
-                    return False
-        return True
+        pass
 
 def choose_grid_size():
     size = 0
