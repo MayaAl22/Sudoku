@@ -58,6 +58,26 @@ class Region:
         """Returns the values of a row"""
 
         return self._region[index]
+
+    def set_field(self, row_index, column_index, value):
+        """Sets a value of a field"""
+
+        if isinstance(self._region[row_index][column_index], Empty):
+            self._region[row_index][column_index] = Inserted(value)
+        elif isinstance(self._region[row_index][column_index], Preset):
+            raise ValueError("Field has preset number")
+        elif isinstance(self._region[row_index][column_index], Inserted):
+            raise ValueError("Field already has a number")
+    
+    def erase_field(self, row_index, column_index):
+        """Sets an empty value on a field"""
+
+        if isinstance(self._region[row_index][column_index], Inserted):
+            self._region[row_index][column_index] = Empty()
+        elif isinstance(self._region[row_index][column_index], Preset):
+            raise ValueError("Field has preset number")
+        elif isinstance(self._region[row_index][column_index], Empty):
+            raise ValueError("Field is empty")
     
 class Grid:
     """A class to represent a the Sudoku grid"""
@@ -124,11 +144,38 @@ class Grid:
             if row > 0 and row < (self._height * self._width - 1) and (row + 1) % self._height == 0:
                 print("--" * (self._height * self._width + int(self._height * self._width / self._width) - 1))
 
-    def erase_field(self, row, column):
-        pass
+    def set_field(self, row_index, column_index, value):
+        """Sets a value of a field"""
 
-    def set_field(self, row, column, number):
-        pass
+        grid_row = int(row_index / self._height)
+        grid_column = int(column_index / self._width)
+
+        region_row = row_index % self._height
+        region_column = column_index % self._width
+
+        row = [ element.get_value() for element in self._get_row(row_index) ]
+        column = [ element.get_value() for element in self._get_column(column_index) ]
+        region = [ element.get_value() for element in self._get_region(grid_row, grid_column) ]
+
+        if value in row:
+            raise ValueError("Value already exists in row")
+        elif value in column:
+            raise ValueError("Value already exists in column")
+        elif value in region:
+            raise ValueError("Value already exists in region")
+        else:
+            self._grid[grid_row][grid_column].set_field(region_row, region_column, value)
+    
+    def erase_field(self, row_index, column_index):
+        """Sets an empty value on a field"""
+
+        grid_row = int(row_index / self._height)
+        grid_column = int(column_index / self._width)
+
+        region_row = row_index % self._height
+        region_column = column_index % self._width
+
+        self._grid[grid_row][grid_column].erase_field(region_row, region_column)
         
     def is_won(self):
         pass
