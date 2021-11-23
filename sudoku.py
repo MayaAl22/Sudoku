@@ -178,7 +178,13 @@ class Grid:
         self._grid[grid_row][grid_column].erase_field(region_row, region_column)
         
     def is_won(self):
-        pass
+        """Returns true if the game is won, otherwise false"""
+        for row_index in range(self._height * self._width):
+            row = [ element.get_value() for element in self._get_row(row_index) ]
+
+            if None in row:
+                return False
+        return True
 
 def choose_grid_size():
     size = 0
