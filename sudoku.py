@@ -237,10 +237,16 @@ def main():
         answer = choose_ee()
         row, column = choose_rc()
         if answer == "erase":
-            grid.erase_field(row, column)
+            try:
+                grid.erase_field(row, column)
+            except ValueError as e:
+                print("Error: {}".format(e))
         elif answer == "enter":
             chooseNumber = choose_number()
-            grid.set_field(row, column, chooseNumber)
+            try:
+                grid.set_field(row, column, chooseNumber)
+            except ValueError as e:
+                print("Error: {}".format(e))
 
         if grid.is_won():
             print("Game won!")
