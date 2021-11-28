@@ -31,6 +31,7 @@ class Region:
     def __init__(self, height, width):
         """Constructs a region with given height and width"""
 
+        # create region list and fill with instances of empty class
         self._region = [ [ Empty() for _ in range(width) ] for _ in range(height) ]
     
     def get_column(self, index):
@@ -88,6 +89,7 @@ class Grid:
         self._height = height
         self._width = width
 
+        # create grid list and fill with instances of region class
         self._grid = [ [ Region(self._height, self._width) for _ in range(self._height) ] for _ in range(self._width) ]
         self._set_values()
     
@@ -161,7 +163,9 @@ class Grid:
         """Returns the values of a column"""
 
         values = []
+        # calculate the column of the region in the grid list
         grid_column = int(index / self._width)
+        # calculate the column inside the region list
         region_column = index % self._width
 
         for row in self._grid:
@@ -180,7 +184,9 @@ class Grid:
         """Returns the values of a row"""
 
         values = []
+        # calculate the row of the region in the grid list
         grid_row = int(index / self._height)
+        # calculate the row inside the region list
         region_row = index % self._height
 
         for region in self._grid[grid_row]:
@@ -210,10 +216,14 @@ class Grid:
     def set_field(self, row_index, column_index, value):
         """Sets a value of a field"""
 
+        # calculate the row of the region in the grid list
         grid_row = int(row_index / self._height)
+        # calculate the column of the region in the grid list
         grid_column = int(column_index / self._width)
 
+        # calculate the row inside the region list
         region_row = row_index % self._height
+        # calculate the column inside the region list
         region_column = column_index % self._width
 
         row = [ element.get_value() for element in self._get_row(row_index) ]
@@ -232,10 +242,14 @@ class Grid:
     def erase_field(self, row_index, column_index):
         """Sets an empty value on a field"""
 
+        # calculate the row of the region in the grid list
         grid_row = int(row_index / self._height)
+        # calculate the column of the region in the grid list
         grid_column = int(column_index / self._width)
 
+        # calculate the row inside the region list
         region_row = row_index % self._height
+        # calculate the column inside the region list
         region_column = column_index % self._width
 
         self._grid[grid_row][grid_column].erase_field(region_row, region_column)
