@@ -27,6 +27,12 @@ Please clone this repository and make sure you have a working installation of th
 The game can be executed on the terminal with the command `python sudoku.py`.
 If the current working directory is not the one of the closed repository a path to the `sudoku.py` file must be added.
 
+## Tools for development
+
+- Python 3 - Python in version 3 is the used interpreter for running the developed code.
+- Git - Git is the used version control system, and also used to push the code to Github.
+- Visual Studio Code - Visual Studio Code is used to develop the code. It has the "Python" and "Git Graph" extensions installed. The "Python" extension is used for syntax highlighting and "Git Graph" for looking at the Git commits.
+
 ## Technical implementation
 
 The game uses five classes to represent the state of the game.
